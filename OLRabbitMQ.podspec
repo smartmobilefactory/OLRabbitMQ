@@ -14,6 +14,4 @@ Pod::Spec.new do |s|
   s.public_header_files = 'OLRabbitMQ/*.h'
   s.source_files = 'OLRabbitMQ/*.{h,m}'
 
-  s.dependency 'rabbitmqc', '0.6.8', git: 'https://github.com/smartmobilefactory/rabbitmqc.git'
-
 end

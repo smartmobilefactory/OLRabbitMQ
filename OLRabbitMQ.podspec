@@ -10,10 +10,10 @@ Pod::Spec.new do |s|
 
   s.ios.platform          = :ios, '7.0'
   s.ios.deployment_target = '7.0'
-  s.source       = { :git => "https://github.com/open-rnd/OLRabbitMQ.git", :tag => s.version }
+  s.source       = { :git => "https://github.com/smartmobilefactory/OLRabbitMQ.git", :tag => s.version }
   s.public_header_files = 'OLRabbitMQ/*.h'
   s.source_files = 'OLRabbitMQ/*.{h,m}'
 
-  s.dependency 'rabbitmqc', git: 'https://github.com/smartmobilefactory/rabbitmqc.git'
+  s.dependency 'rabbitmqc', '0.6.8', git: 'https://github.com/smartmobilefactory/rabbitmqc.git'
 
 end

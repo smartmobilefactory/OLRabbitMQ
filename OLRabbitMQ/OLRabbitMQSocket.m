@@ -147,13 +147,13 @@
     return nil;
 }
 
-- (void)loginVhost:(NSString *)aVhost login:(NSString *)aLogin password:(NSString *)aPassword callback:(void (^)(BOOL ready, NSError*error))callback {
-    
+- (void)loginVhost:(NSString *)aVhost login:(NSString *)aLogin password:(NSString *)aPassword heartbeatRate:(int)heartbeat callback:(void (^)(BOOL ready, NSError*error))callback {
+
     vhost = aVhost;
     login = aLogin;
     password = aPassword;
-    
-    [self loginConnVHost:vhost login:login password:password];
+
+    [self loginConnVHost:vhost login:login password:password heartbeatRate:heartbeat];
     
     amqp_channel_open(conn, 1);
     [OLRabbitMQError validOLRabbitMQRpcReplayT:amqp_get_rpc_reply(conn) success:^{
@@ -185,12 +185,12 @@
 
 }
 
-- (OLRabbitMQError *)loginConnVHost:(NSString *)aVhost login:(NSString *)aLogin password:(NSString *)aPassword {
+- (OLRabbitMQError *)loginConnVHost:(NSString *)aVhost login:(NSString *)aLogin password:(NSString *)aPassword heartbeatRate:(int)heartbeat {
     const char *_vhost = [aVhost cStringUsingEncoding:NSUTF8StringEncoding];
     const char *_login = [aLogin cStringUsingEncoding:NSUTF8StringEncoding];
     const char *_passowrd = [aPassword cStringUsingEncoding:NSUTF8StringEncoding];
     
-    amqp_rpc_reply_t loginRPC = amqp_login(conn, _vhost, 0, 131072, 30, AMQP_SASL_METHOD_PLAIN, _login, _passowrd);
+    amqp_rpc_reply_t loginRPC = amqp_login(conn, _vhost, 0, 131072, heartbeat, AMQP_SASL_METHOD_PLAIN, _login, _passowrd);
     OLRabbitMQError *errorValid = [OLRabbitMQError error:loginRPC];
     return errorValid;
 }

@@ -66,7 +66,13 @@
             if (AMQP_RESPONSE_NORMAL != res.reply_type) {
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     if (_delegate && [_delegate respondsToSelector:@selector(amqpError:)]) {
-                        [_delegate amqpError:[NSError errorWithDomain:kOLRabbitMQErrorDomain code:(int)res.reply_type userInfo:nil]];
+                        NSMutableDictionary *userInfo = [NSMutableDictionary new];
+                        if (res.library_error) {
+                            NSString *library_error_string = [NSString stringWithUTF8String:amqp_error_string2(res.library_error)];
+                            userInfo[@"library_error_string"] = library_error_string;
+                            userInfo[@"library_error_code"] = @(res.library_error);
+                        }
+                        [_delegate amqpError:[NSError errorWithDomain:kOLRabbitMQErrorDomain code:(int)res.reply_type userInfo:userInfo]];
                     }
                 }];
             } else {

@@ -8,10 +8,10 @@ Pod::Spec.new do |s|
   s.author       = { "Open-RnD" => "info@open-rnd.pl" }
   s.requires_arc = true
 
-  s.ios.platform          = :ios, '7.0'
-  s.ios.deployment_target = '7.0'
-  s.source       = { :git => "https://github.com/smartmobilefactory/OLRabbitMQ.git", :tag => s.version }
-  s.public_header_files = 'OLRabbitMQ/*.h'
-  s.source_files = 'OLRabbitMQ/*.{h,m}'
+  s.platform                = :ios, '7.0'
+  s.ios.deployment_target   = '7.0'
+  s.source                  = { :git => "https://github.com/smartmobilefactory/OLRabbitMQ.git", :tag => s.version }
+  s.public_header_files     = 'OLRabbitMQ/*.h'
+  s.source_files            = 'OLRabbitMQ/*.{h,m}'
 
 end
